@@ -1,26 +1,220 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand */
+  --kolo-orange: #ec4b04;
+  --kolo-navy: #172033;
+  --kolo-purple: #5b21b6;
+
+  /* Backgrounds */
+  --kolo-bg: #f7f4ee;
+  --kolo-surface: #ffffff;
+  --kolo-surface-dark: #172033;
+
+  /* Typography */
+  --kolo-text: #10151c;
+  --kolo-text-secondary: #667085;
+
+  /* Borders */
+  --kolo-border: #e9e1d5;
+
+  /* Semantic */
+  --success: #16845b;
+  --warning: #d99000;
+  --danger: #d64545;
+  --info: #3478c9;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  /* Kolo Colors */
+  /* Primary dark / text / primary buttons on light backgrounds */
+  --color-kolo-ink: #1b2a22;
+  --color-kolo-ink-dark: #0f1811;
+
+  /* Primary accent — currency green. Used for primary CTAs,
+     positive figures, checkmarks, links on dark backgrounds. */
+  --color-kolo-currency: #2e6f4d;
+  --color-kolo-currency-dark: #25583d;
+
+  /* Light green used for figures/accents *on* ink backgrounds
+     (dark sections, dashboard chips) where full currency green
+     doesn't have enough contrast. */
+  --color-kolo-mint: #8fd9b4;
+
+  /* Reserved accent — "recommended" / "verified" / alert states
+     only (pricing stamp, low-stock warning, form errors).
+     Don't use this as a general-purpose accent. */
+  --color-kolo-stamp: #c2410c;
+  --color-kolo-stamp-light: #f2a26b;
+  --color-kolo-stamp-ink: #fff3ea;
+
+  /* Paper backgrounds, lightest to slightly deeper */
+  --color-kolo-paper: #fffdf8;
+  --color-kolo-paper-soft: #fbf7ee;
+  --color-kolo-paper-alt: #f7f4ee;
+  --color-kolo-paper-alt-dark: #efe9da;
+
+  /* Hairlines / dividers, lightest to darkest */
+  --color-kolo-hairline: #d9cfb8;
+  --color-kolo-hairline-soft: #e4dac4;
+  --color-kolo-hairline-dark: #c9bea6;
+
+  /* One-off accent used for the resources card's left margin rule */
+  --color-kolo-accent-soft: #e7b8a0;
+
+  /* Muted text, lighter to darker */
+  --color-kolo-muted: #6e6152;
+  --color-kolo-muted-light: #8a7f6d;
+  --color-kolo-placeholder: #b7af9d;
+
+  /* Fonts */
+  /* Wire these to next/font variables in your root layout:
+     import { Instrument_Sans, IBM_Plex_Mono } from 'next/font/google';
+     const instrument = Instrument_Sans({ subsets: ['latin'], variable: '--font-instrument' });
+     const plexMono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['400','500'], variable: '--font-plex-mono' });
+     then add `${instrument.variable} ${plexMono.variable}` to <body>. */
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
+
+  /* Shadows */
+  /* Dashboard mockup's floating card shadow */
+  --shadow-kolo-lift: 0 40px 100px -20px rgba(27, 42, 34, 0.15);
+  /* Sticky navbar shadow on scroll */
+  --shadow-kolo-nav: 0 12px 40px -12px rgba(27, 42, 34, 0.12);
+  /* Auth panel's balance card shadow */
+  --shadow-kolo-panel: 0 25px 70px rgba(0, 0, 0, 0.35);
+
+  /* Override the default font-sans to use Inter */
+  --font-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Override the default font-serif to use Fraunces */
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fbfcfb;
+  color: #10201a;
 }
+
+button {
+  @apply cursor-pointer;
+}
+
+.section {
+  @apply px-6 py-24 lg:px-8 lg:py-32;
+}
+
+.section-x {
+  @apply px-6 py-6 lg:px-8;
+}
+
+.section-space {
+  @apply mx-auto max-w-6xl;
+}
+
+/*
+ * Kolo scrollbar
+ * Same tokens as theme/tailwind.config.ts — kept as raw hex here since
+ * scrollbar pseudo-elements can't consume Tailwind classes directly.
+ *
+ * Usage:
+ *   <div className="kolo-scrollbar overflow-y-auto ...">          for light/paper backgrounds
+ *   <div className="kolo-scrollbar kolo-scrollbar-dark overflow-y-auto ..."> for ink/dark backgrounds
+ *
+ * Import this file once (e.g. in your root layout or globals.css via
+ * `@import './scrollbar.css';`) — it only styles elements that opt in
+ * via these classes, so it won't touch scrollbars elsewhere in the app.
+ */
+
+/* ---- Light / paper background (default) ---- */
+
+.kolo-scrollbar {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #d9cfb8 transparent; /* thumb, track — Firefox */
+}
+
+.kolo-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.kolo-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.kolo-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d9cfb8; /* kolo-hairline */
+  border-radius: 9999px;
+  border: 2px solid transparent; /* shrinks the visible thumb off the track edge */
+  background-clip: padding-box;
+}
+
+.kolo-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #8a7f6d; /* kolo-muted-light */
+}
+
+.kolo-scrollbar::-webkit-scrollbar-thumb:active {
+  background-color: #1b2a22; /* kolo-ink */
+}
+
+.kolo-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ---- Dark / ink background variant ---- */
+
+.kolo-scrollbar-dark {
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.kolo-scrollbar-dark::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.kolo-scrollbar-dark::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.kolo-scrollbar-dark::-webkit-scrollbar-thumb:active {
+  background-color: #8fd9b4; /* kolo-mint */
+}
+
+/* ---- Optional: hide the scrollbar entirely but keep it scrollable ----
+   Useful for things like the horizontal chip rows / carousels, where a
+   visible scrollbar isn't wanted. Opt in with `kolo-scrollbar-hidden`. */
+
+.kolo-scrollbar-hidden {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* old Edge/IE */
+}
+
+.kolo-scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* // Primary
+<button className="bg-kolo-orange text-white">
+  New Sale
+</button>
+
+// Navigation / dark elements
+<aside className="bg-kolo-navy text-white">
+
+// Main background
+<main className="bg-kolo-background">
+
+// Cards
+<div className="bg-kolo-surface border border-kolo-border">
+
+// Main text
+<h1 className="text-kolo-foreground">
+
+// Secondary text
+<p className="text-kolo-muted">
+
+// Insights / AI
+<div className="text-kolo-purple"> */

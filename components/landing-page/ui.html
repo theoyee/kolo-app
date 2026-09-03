@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevFest Abeokuta 2026 | Build. Secure. Scale.</title>
+  <meta name="description"
+    content="The premier developer conference in Abeokuta. Join the agentic era of technology. Oct 31, 2026.">
+
+  <!-- Premium Fonts: Clash Display & Satoshi -->
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            google: {
+              blue: '#4285F4',
+              red: '#EA4335',
+              yellow: '#FBBC05',
+              green: '#34A853',
+              dark: '#030014', // Deep space black
+              card: 'rgba(255, 255, 255, 0.03)',
+              border: 'rgba(255, 255, 255, 0.08)',
+            }
+          },
+          fontFamily: {
+            display: ['Clash Display', 'sans-serif'],
+            sans: ['Satoshi', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          animation: {
+            'blob': 'blob 10s infinite',
+            'shimmer': 'shimmer 2.5s linear infinite',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #030014;
+      color: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Animated Mesh Gradient Background */
+    .mesh-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+      background: #030014;
+    }
+
+    .mesh-bg::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, rgba(66, 133, 244, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: blob 15s infinite alternate;
+    }
+
+    .mesh-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      right: -10%;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(234, 67, 53, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: blob 12s infinite alternate-reverse;
+    }
+
+    .mesh-orb {
+      position: absolute;
+      top: 40%;
+      left: 40%;
+      width: 40vw;
+      height: 40vw;
+      background: radial-gradient(circle, rgba(251, 188, 5, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: blob 18s infinite alternate;
+    }
+
+    /* Glassmorphism Utilities */
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-strong {
+      background: rgba(10, 10, 15, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Scroll Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Spotlight Effect */
+    .spotlight-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .spotlight-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.08), transparent 40%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .spotlight-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Holographic Shimmer for Premium Ticket */
+    .holo-shimmer {
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      background-size: 200% 100%;
+      animation: shimmer 3s infinite;
+    }
+
+    /* Text Gradient */
+    .text-gradient-glow {
+      background: linear-gradient(135deg, #4285F4 0%, #EA4335 50%, #FBBC05 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(66, 133, 244, 0.3));
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #030014;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  </style>
+</head>
+
+<body class="selection:bg-google-blue selection:text-white">
+
+  <!-- Animated Mesh Background -->
+  <div class="mesh-bg">
+    <div class="mesh-orb"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed w-full z-50 top-0 transition-all duration-500 border-b border-transparent">
+    <div class="absolute inset-0 glass-strong opacity-0 transition-opacity duration-500" id="nav-bg"></div>
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative z-10">
+      <a href="#" class="text-2xl font-display font-semibold tracking-tight flex items-center gap-3 group">
+        <div class="flex gap-1.5">
+          <span
+            class="w-2.5 h-2.5 bg-google-blue rounded-full group-hover:scale-125 transition-transform duration-300"></span>
+          <span
+            class="w-2.5 h-2.5 bg-google-red rounded-full group-hover:scale-125 transition-transform duration-300 delay-75"></span>
+          <span
+            class="w-2.5 h-2.5 bg-google-yellow rounded-full group-hover:scale-125 transition-transform duration-300 delay-100"></span>
+          <span
+            class="w-2.5 h-2.5 bg-google-green rounded-full group-hover:scale-125 transition-transform duration-300 delay-150"></span>
+        </div>
+        <span class="text-white">DEVFEST</span><span class="text-gray-500">ABK</span>
+      </a>
+
+      <div class="hidden md:flex gap-8 font-sans text-sm font-medium text-gray-400">
+        <a href="#about" class="hover:text-white transition-colors duration-300">About</a>
+        <a href="#tracks" class="hover:text-white transition-colors duration-300">Tracks</a>
+        <a href="#speakers" class="hover:text-white transition-colors duration-300">Speakers</a>
+        <a href="#schedule" class="hover:text-white transition-colors duration-300">Schedule</a>
+      </div>
+
+      <a href="#tickets"
+        class="hidden md:inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold font-sans uppercase tracking-wider text-black bg-white rounded-full hover:bg-google-blue hover:text-white hover:shadow-[0_0_25px_rgba(66,133,244,0.5)] transition-all duration-300">
+        Get Tickets
+      </a>
+
+      <button class="md:hidden text-white p-2"
+        onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobile-menu"
+      class="hidden md:hidden absolute top-20 left-0 w-full glass-strong border-b border-google-border p-6 flex flex-col gap-4 font-sans text-center">
+      <a href="#about" class="text-gray-400 hover:text-white py-2">About</a>
+      <a href="#tracks" class="text-gray-400 hover:text-white py-2">Tracks</a>
+      <a href="#speakers" class="text-gray-400 hover:text-white py-2">Speakers</a>
+      <a href="#tickets" class="text-google-blue font-bold py-2">Get Tickets</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20">
+    <div class="container max-w-7xl mx-auto px-6 relative z-10">
+      <div class="reveal">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 border border-white/10">
+          <span class="w-2 h-2 rounded-full bg-google-green animate-pulse"></span>
+          <span class="font-mono text-xs md:text-sm text-gray-300 uppercase tracking-widest">Oct 31, 2026 &middot;
+            Capricorn Cinemas, Abeokuta</span>
+        </div>
+      </div>
+
+      <h1
+        class="reveal text-6xl md:text-8xl lg:text-9xl font-display font-semibold leading-[0.9] tracking-tight uppercase mb-8"
+        style="transition-delay: 100ms;">
+        Build.<br>
+        <span class="text-gradient-glow">Secure.</span><br>
+        Scale.
+      </h1>
+
+      <p class="reveal text-xl md:text-2xl text-gray-400 max-w-2xl mb-12 font-light leading-relaxed"
+        style="transition-delay: 200ms;">
+        Join the vanguard of the <span class="text-white font-medium">agentic era</span>. A premium gathering of
+        developers, engineers, and builders shaping the future of African tech.
+      </p>
+
+      <div class="reveal flex flex-col sm:flex-row gap-4" style="transition-delay: 300ms;">
+        <a href="#tickets"
+          class="group relative inline-flex items-center justify-center px-8 py-4 font-bold font-sans uppercase tracking-wider text-black bg-white rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]">
+          <span class="relative z-10">Secure Your Spot</span>
+          <div
+            class="absolute inset-0 bg-google-blue transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300">
+          </div>
+          <span
+            class="absolute inset-0 z-10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">Secure
+            Your Spot</span>
+        </a>
+        <a href="#schedule"
+          class="inline-flex items-center justify-center px-8 py-4 font-bold font-sans uppercase tracking-wider text-white glass rounded-full hover:bg-white/10 transition-all duration-300">
+          View Agenda
+        </a>
+      </div>
+    </div>
+
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 animate-float">
+      <span class="font-mono text-[10px] uppercase tracking-widest">Scroll</span>
+      <div class="w-px h-12 bg-gradient-to-b from-white to-transparent"></div>
+    </div>
+  </header>
+
+  <!-- Tracks Bento Grid -->
+  <section id="tracks" class="py-32 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+        <h2 class="text-5xl md:text-7xl font-display font-semibold tracking-tight uppercase">Tracks</h2>
+        <p class="font-sans text-gray-400 max-w-md mt-4 md:mt-0 text-lg">Deep dive into the core technologies driving
+          the African tech ecosystem forward.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[220px]">
+        <!-- Large Card -->
+        <div
+          class="reveal md:col-span-2 spotlight-card glass rounded-3xl p-8 flex flex-col justify-between group cursor-pointer transition-all duration-500 hover:border-google-blue/30 hover:bg-white/[0.04]">
+          <div
+            class="w-14 h-14 rounded-2xl bg-google-blue/10 flex items-center justify-center text-google-blue group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(66,133,244,0.3)] transition-all duration-500">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z">
+              </path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-3xl font-display font-semibold mb-2 group-hover:text-google-blue transition-colors">AI &
+              Machine Learning</h3>
+            <p class="text-gray-400 font-sans text-base">Agentic workflows, LLM fine-tuning, and production-ready AI
+              systems.</p>
+          </div>
+        </div>
+
+        <!-- Standard Card -->
+        <div
+          class="reveal spotlight-card glass rounded-3xl p-8 flex flex-col justify-between group cursor-pointer transition-all duration-500 hover:border-google-red/30 hover:bg-white/[0.04]"
+          style="transition-delay: 100ms;">
+          <div
+            class="w-14 h-14 rounded-2xl bg-google-red/10 flex items-center justify-center text-google-red group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(234,67,53,0.3)] transition-all duration-500">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+              </path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-2xl font-display font-semibold mb-2 group-hover:text-google-red transition-colors">
+              Cybersecurity</h3>
+            <p class="text-gray-400 font-sans text-base">Zero-trust architecture and automated threat detection.</p>
+          </div>
+        </div>
+
+        <!-- Standard Card -->
+        <div
+          class="reveal spotlight-card glass rounded-3xl p-8 flex flex-col justify-between group cursor-pointer transition-all duration-500 hover:border-google-yellow/30 hover:bg-white/[0.04]"
+          style="transition-delay: 200ms;">
+          <div
+            class="w-14 h-14 rounded-2xl bg-google-yellow/10 flex items-center justify-center text-google-yellow group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(251,188,5,0.3)] transition-all duration-500">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-2xl font-display font-semibold mb-2 group-hover:text-google-yellow transition-colors">Cloud
+              Native</h3>
+            <p class="text-gray-400 font-sans text-base">Kubernetes, serverless, and edge computing at scale.</p>
+          </div>
+        </div>
+
+        <!-- Large Card -->
+        <div
+          class="reveal md:col-span-2 spotlight-card glass rounded-3xl p-8 flex flex-col justify-between group cursor-pointer transition-all duration-500 hover:border-google-green/30 hover:bg-white/[0.04]"
+          style="transition-delay: 300ms;">
+          <div
+            class="w-14 h-14 rounded-2xl bg-google-green/10 flex items-center justify-center text-google-green group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(52,168,83,0.3)] transition-all duration-500">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-3xl font-display font-semibold mb-2 group-hover:text-google-green transition-colors">Modern
+              Web & Mobile</h3>
+            <p class="text-gray-400 font-sans text-base">Next-gen frameworks, WebAssembly, and cross-platform mastery.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tickets Section (Premium Holographic Design) -->
+  <section id="tickets" class="py-32 px-6 relative overflow-hidden">
+    <div
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-google-blue/10 rounded-full blur-[120px] pointer-events-none">
+    </div>
+
+    <div class="max-w-5xl mx-auto relative z-10">
+      <div class="text-center mb-20 reveal">
+        <h2 class="text-5xl md:text-7xl font-display font-semibold tracking-tight uppercase mb-6">Get Your <span
+            class="text-gradient-glow">Pass</span></h2>
+        <p class="text-xl text-gray-400 font-sans">Oct 31, 2026 &middot; Capricorn Cinemas, Abeokuta</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Standard Ticket -->
+        <div class="reveal glass rounded-3xl p-1 group hover:border-white/20 transition-all duration-500">
+          <div class="bg-[#0A0A0F] rounded-[22px] p-8 md:p-10 flex flex-col h-full relative overflow-hidden">
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-google-blue/5 rounded-full blur-3xl group-hover:bg-google-blue/10 transition-all duration-500">
+            </div>
+
+            <div class="mb-8">
+              <h3 class="text-2xl font-display font-semibold uppercase mb-2 text-white">Standard Entry</h3>
+              <p class="text-gray-400 font-sans text-sm">Perfect for students and early-career developers.</p>
+            </div>
+
+            <div class="mb-8 flex items-baseline gap-2">
+              <span class="text-5xl font-display font-semibold text-white">Free</span>
+            </div>
+
+            <ul class="space-y-4 mb-10 flex-grow">
+              <li class="flex items-center gap-3 text-gray-300 font-sans text-sm">
+                <svg class="w-5 h-5 text-google-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Access to all main stage talks
+              </li>
+              <li class="flex items-center gap-3 text-gray-300 font-sans text-sm">
+                <svg class="w-5 h-5 text-google-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Networking area access
+              </li>
+              <li class="flex items-center gap-3 text-gray-300 font-sans text-sm">
+                <svg class="w-5 h-5 text-google-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Sponsor booth exhibitions
+              </li>
+            </ul>
+
+            <button
+              class="w-full py-4 rounded-xl border border-white/10 bg-white/5 font-bold font-sans uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300">
+              Reserve Free Ticket
+            </button>
+          </div>
+        </div>
+
+        <!-- Builder Pass (Holographic Premium) -->
+        <div class="reveal relative group" style="transition-delay: 100ms;">
+          <!-- Glowing Border Effect -->
+          <div
+            class="absolute -inset-0.5 bg-gradient-to-r from-google-blue via-google-red to-google-yellow rounded-3xl opacity-50 group-hover:opacity-100 blur transition duration-500">
+          </div>
+
+          <div class="relative bg-[#0A0A0F] rounded-3xl p-1 flex flex-col h-full">
+            <!-- Holographic Shimmer Overlay -->
+            <div class="absolute inset-0 rounded-3xl holo-shimmer pointer-events-none z-20"></div>
+
+            <div class="relative bg-[#0F0F16] rounded-[23px] p-8 md:p-10 flex flex-col h-full z-10">
+              <div
+                class="absolute top-0 right-0 bg-gradient-to-r from-google-blue to-google-red text-white text-[10px] font-bold font-sans px-4 py-1.5 rounded-bl-xl rounded-tr-2xl uppercase tracking-wider">
+                Recommended</div>
+
+              <div class="mb-8">
+                <h3
+                  class="text-2xl font-display font-semibold uppercase mb-2 text-transparent bg-clip-text bg-gradient-to-r from-google-blue to-google-red">
+                  Builder Pass</h3>
+                <p class="text-gray-400 font-sans text-sm">The complete, premium experience for serious builders.</p>
+              </div>
+
+              <div class="mb-8 flex items-baseline gap-2">
+                <span class="text-5xl font-display font-semibold text-white">₦5,000</span>
+              </div>
+
+              <ul class="space-y-4 mb-10 flex-grow">
+                <li class="flex items-center gap-3 text-white font-sans text-sm">
+                  <svg class="w-5 h-5 text-google-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="font-semibold">Everything in Standard, plus:</span>
+                </li>
+                <li class="flex items-center gap-3 text-gray-300 font-sans text-sm">
+                  <svg class="w-5 h-5 text-google-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Priority seating for hands-on workshops
+                </li>
+                <li class="flex items-center gap-3 text-gray-300 font-sans text-sm">
+                  <svg class="w-5 h-5 text-google-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Exclusive DevFest 2026 Swag Kit
+                </li>
+                <li class="flex items-center gap-3 text-gray-300 font-sans text-sm">
+                  <svg class="w-5 h-5 text-google-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  VIP Lunch & Afterparty access
+                </li>
+              </ul>
+
+              <button
+                class="w-full py-4 rounded-xl bg-gradient-to-r from-google-blue to-blue-600 text-white font-bold font-sans uppercase tracking-wider hover:shadow-[0_0_30px_rgba(66,133,244,0.4)] transition-all duration-300 transform group-hover:-translate-y-1">
+                Buy Builder Pass
+              </button>
+              <p class="text-center text-xs text-gray-500 mt-4 font-mono">Secure payments processed via Paystack</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-google-border bg-[#02000D] pt-24 pb-12 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+        <div class="md:col-span-2">
+          <a href="#" class="text-3xl font-display font-semibold tracking-tight flex items-center gap-3 mb-6">
+            <span class="text-white">DEVFEST</span><span class="text-gray-600">ABK</span>
+          </a>
+          <p class="text-gray-500 max-w-sm leading-relaxed font-sans">
+            Empowering the next generation of African developers to build secure, scalable, and intelligent solutions
+            for the world.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-sans text-xs font-bold uppercase tracking-widest text-white mb-6">Navigate</h4>
+          <ul class="space-y-4 font-sans text-sm text-gray-500">
+            <li><a href="#about" class="hover:text-google-blue transition-colors">About</a></li>
+            <li><a href="#tracks" class="hover:text-google-blue transition-colors">Tracks</a></li>
+            <li><a href="#speakers" class="hover:text-google-blue transition-colors">Speakers</a></li>
+            <li><a href="#schedule" class="hover:text-google-blue transition-colors">Schedule</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-sans text-xs font-bold uppercase tracking-widest text-white mb-6">Connect</h4>
+          <ul class="space-y-4 font-sans text-sm text-gray-500">
+            <li><a href="#" class="hover:text-white transition-colors">Twitter (X)</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">LinkedIn</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Code of Conduct</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-gray-600 font-sans text-xs font-medium">
+          &copy; 2026 GDG Abeokuta. All rights reserved.
+        </div>
+        <div class="text-gray-600 font-sans text-xs font-medium flex items-center gap-2">
+          Built with <span class="text-google-red animate-pulse">&hearts;</span> for the community
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Scroll Reveal Animation
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // 2. Navbar Background on Scroll
+      const navBg = document.getElementById('nav-bg');
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navBg.classList.remove('opacity-0');
+          navbar.classList.add('border-white/5');
+        } else {
+          navBg.classList.add('opacity-0');
+          navbar.classList.remove('border-white/5');
+        }
+      });
+
+      // 3. Advanced Spotlight Effect for Cards
+      document.querySelectorAll('.spotlight-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

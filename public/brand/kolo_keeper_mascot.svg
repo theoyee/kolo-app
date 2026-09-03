@@ -1,0 +1,95 @@
+<svg viewBox="0 0 370 420" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;display=swap');
+      .hairline { stroke: #1B2A22; stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .fill-paper { fill: #FBF7EE; }
+      .fill-white { fill: #FFFDF8; }
+      .fill-green { fill: #2E6F4D; }
+      .fill-ink { fill: #1B2A22; }
+      .fill-orange { fill: #C2410C; }
+      .text-mono { font-family: 'IBM Plex Mono', 'Courier New', monospace; }
+      .text-sans { font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <!-- Shadow / ground line -->
+  <ellipse cx="200" cy="390" rx="90" ry="6" fill="#D9CFB8" opacity="0.4" />
+
+  <!-- Left Foot -->
+  <rect x="145" y="370" width="28" height="16" rx="8" class="fill-paper hairline" />
+  <!-- Right Foot -->
+  <rect x="227" y="370" width="28" height="16" rx="8" class="fill-paper hairline" />
+
+  <!-- Main Body (Kolo Box shape) -->
+  <rect x="120" y="140" width="160" height="210" rx="24" class="fill-paper hairline" />
+
+  <!-- Body highlight / inner panel -->
+  <rect x="136" y="156" width="128" height="178" rx="16" fill="none" stroke="#D9CFB8" stroke-width="1" />
+
+  <!-- Coin Slot on top -->
+  <rect x="170" y="130" width="60" height="10" rx="5" class="fill-ink" />
+  <rect x="175" y="132" width="50" height="6" rx="3" fill="#1B2A22" opacity="0.3" />
+
+  <!-- Face -->
+  <!-- Left Eye -->
+  <circle cx="165" cy="200" r="5" class="fill-ink" />
+  <!-- Right Eye -->
+  <circle cx="235" cy="200" r="5" class="fill-ink" />
+  <!-- Smile -->
+  <path d="M 175 220 Q 200 235 225 220" class="hairline" stroke-width="2" />
+  <!-- Cheek marks (subtle) -->
+  <circle cx="155" cy="212" r="3" fill="#D9CFB8" opacity="0.6" />
+  <circle cx="245" cy="212" r="3" fill="#D9CFB8" opacity="0.6" />
+
+  <!-- Receipt / Ledger Tail (extends from left side) -->
+  <!-- Receipt body -->
+  <path d="M 120 260 L 60 260 L 60 340 L 120 340" class="fill-white hairline" />
+  <!-- Receipt perforation (dashed line at bottom) -->
+  <line x1="60" y1="340" x2="120" y2="340" stroke="#1B2A22" stroke-width="1.5" stroke-dasharray="4 3" />
+  <!-- Receipt top zigzag (torn edge) -->
+  <path d="M 60 260 L 68 252 L 76 260 L 84 252 L 92 260 L 100 252 L 108 260 L 116 252 L 120 260" class="fill-white hairline" />
+
+  <!-- Receipt content: Mono numerals -->
+  <text x="70" y="280" class="text-mono" font-size="9" fill="#8A7F6D">TOTAL</text>
+  <text x="70" y="298" class="text-mono" font-size="14" font-weight="500" fill="#1B2A22">₦245,000</text>
+  <text x="70" y="314" class="text-mono" font-size="8" fill="#2E6F4D">+18.4% vs yest</text>
+  <!-- Small green dot on receipt -->
+  <circle cx="110" cy="310" r="2.5" class="fill-green" />
+
+  <!-- Right Arm (holding the receipt) -->
+  <path d="M 120 280 Q 100 290 90 300" class="hairline" stroke-width="2.5" />
+  <!-- Hand -->
+  <circle cx="88" cy="302" r="7" class="fill-paper hairline" stroke-width="2" />
+
+  <!-- Left Arm (waving/idle) -->
+  <path d="M 280 280 Q 305 270 315 250" class="hairline" stroke-width="2.5" />
+  <circle cx="317" cy="248" r="7" class="fill-paper hairline" stroke-width="2" />
+
+  <!-- Stamp Badge on body (sparingly used orange) -->
+  <g transform="translate(248, 168) rotate(-12)">
+    <rect x="0" y="0" width="44" height="20" rx="3" fill="#C2410C" opacity="0.1" />
+    <rect x="0" y="0" width="44" height="20" rx="3" fill="none" stroke="#C2410C" stroke-width="1.5" stroke-dasharray="2 2" />
+    <text x="22" y="13" text-anchor="middle" class="text-sans" font-size="8" font-weight="800" fill="#C2410C" letter-spacing="0.05em">VERIFIED</text>
+  </g>
+
+  <!-- Mono data label on body (ledger feel) -->
+  <text x="200" y="320" text-anchor="middle" class="text-mono" font-size="10" fill="#8A7F6D">business_id: 8X4-KL</text>
+
+  <!-- Decorative hairline border at bottom of body (like a footer) -->
+  <line x1="136" y1="350" x2="264" y2="350" stroke="#D9CFB8" stroke-width="1" />
+
+  <!-- Small punched notch on body (receipt motif extension) -->
+  <circle cx="140" cy="350" r="3" fill="#FFFDF8" />
+  <circle cx="260" cy="350" r="3" fill="#FFFDF8" />
+
+  <!-- Live ticker dot (from hero motif) floating above -->
+  <g transform="translate(320, 120)">
+    <circle cx="0" cy="0" r="4" fill="#2E6F4D" opacity="0.3">
+      <animate attributeName="r" values="4;8;4" dur="2.5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.3;0;0.3" dur="2.5s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="0" cy="0" r="3" class="fill-green" />
+  </g>
+  <text x="332" y="4" class="text-mono" font-size="9" fill="#2E6F4D">live</text>
+</svg>

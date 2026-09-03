@@ -1,0 +1,212 @@
+<svg viewBox="0 0 380 540" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;display=swap');
+      .hairline { stroke: #1B2A22; stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .fill-paper { fill: #FBF7EE; }
+      .fill-white { fill: #FFFDF8; }
+      .fill-green { fill: #2E6F4D; }
+      .fill-ink { fill: #1B2A22; }
+      .fill-orange { fill: #C2410C; }
+      .text-mono { font-family: 'IBM Plex Mono', 'Courier New', monospace; }
+      .text-sans { font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+    <!-- Clip path for printed text so it stays inside the receipt -->
+    <clipPath id="receipt-clip">
+      <path d="M 150 485
+               C 152 350, 154 220, 155 160
+               C 155 140, 165 135, 180 135
+               L 260 135
+               C 275 135, 285 142, 290 155
+               C 295 168, 288 185, 275 198
+               C 262 211, 245 205, 238 192
+               C 231 179, 240 165, 255 160
+               L 330 160
+               C 332 220, 330 350, 330 485
+               Z" />
+    </clipPath>
+  </defs>
+
+  <!-- ========================================= -->
+  <!-- LAYER 1: AMBIENT / GROUND                 -->
+  <!-- Motion: subtle scale pulse on shadow      -->
+  <!-- ========================================= -->
+  <ellipse cx="240" cy="505" rx="115" ry="7" fill="#D9CFB8" opacity="0.3" />
+
+  <!-- ========================================= -->
+  <!-- LAYER 2: PRINTER BASE (Anchor)            -->
+  <!-- Motion: static / subtle vibration on print -->
+  <!-- ========================================= -->
+  <g id="printer-base">
+    <!-- Main body -->
+    <rect x="155" y="475" width="170" height="42" rx="10" class="fill-paper hairline" />
+    <!-- Slot -->
+    <rect x="185" y="480" width="110" height="5" rx="2.5" fill="#1B2A22" opacity="0.15" />
+    <rect x="185" y="479" width="110" height="4" rx="2" fill="#1B2A22" />
+    <!-- Detail line -->
+    <line x1="175" y1="503" x2="305" y2="503" stroke="#D9CFB8" stroke-width="1" />
+    <!-- Mono label -->
+    <text x="240" y="497" text-anchor="middle" class="text-mono" font-size="7" fill="#8A7F6D">KOLO-TERM-01</text>
+  </g>
+
+  <!-- ========================================= -->
+  <!-- LAYER 3: RECEIPT BODY (Primary mass)      -->
+  <!-- Motion: gentle vertical float (±4px)      -->
+  <!--         + subtle skew on print cycle      -->
+  <!-- ========================================= -->
+  <g id="receipt-body">
+    <!-- Main shape -->
+    <path d="M 150 485
+             C 152 350, 154 220, 155 160
+             C 155 140, 165 135, 180 135
+             L 260 135
+             C 275 135, 285 142, 290 155
+             C 295 168, 288 185, 275 198
+             C 262 211, 245 205, 238 192
+             C 231 179, 240 165, 255 160
+             L 330 160
+             C 332 220, 330 350, 330 485
+             Z"
+          class="fill-white" stroke="#1B2A22" stroke-width="1.5" stroke-linejoin="round" />
+
+    <!-- Inner ledger panel (subtle) -->
+    <path d="M 165 470
+             L 168 170
+             C 168 165, 172 162, 178 162
+             L 248 162
+             C 252 162, 255 165, 255 170
+             L 255 162
+             L 315 170
+             L 315 470
+             Z"
+          fill="none" stroke="#D9CFB8" stroke-width="0.75" opacity="0.5" />
+
+    <!-- Punched notches (bottom corners) -->
+    <circle cx="165" cy="485" r="5" fill="#FFFDF8" stroke="#1B2A22" stroke-width="1.5" />
+    <circle cx="315" cy="485" r="5" fill="#FFFDF8" stroke="#1B2A22" stroke-width="1.5" />
+
+    <!-- Dashed perforation line -->
+    <line x1="162" y1="380" x2="318" y2="380" stroke="#1B2A22" stroke-width="1.5" stroke-dasharray="5 4" />
+
+    <!-- Printed data lines (clipped to body) -->
+    <g clip-path="url(#receipt-clip)">
+      <!-- Horizontal ledger lines -->
+      <line x1="160" y1="195" x2="320" y2="195" stroke="#F7F4EE" stroke-width="1" />
+      <line x1="160" y1="225" x2="320" y2="225" stroke="#F7F4EE" stroke-width="1" />
+      <line x1="160" y1="255" x2="320" y2="255" stroke="#F7F4EE" stroke-width="1" />
+      <line x1="160" y1="285" x2="320" y2="285" stroke="#F7F4EE" stroke-width="1" />
+      <line x1="160" y1="315" x2="320" y2="315" stroke="#F7F4EE" stroke-width="1" />
+      <line x1="160" y1="345" x2="320" y2="345" stroke="#F7F4EE" stroke-width="1" />
+
+      <!-- Transaction entries -->
+      <text x="172" y="218" class="text-mono" font-size="9" fill="#8A7F6D">14:32</text>
+      <text x="205" y="218" class="text-sans" font-size="9" font-weight="600" fill="#1B2A22">Indomie (carton)</text>
+      <text x="295" y="218" class="text-mono" font-size="9" font-weight="500" fill="#1B2A22" text-anchor="end">₦12,500</text>
+
+      <text x="172" y="248" class="text-mono" font-size="9" fill="#8A7F6D">14:45</text>
+      <text x="205" y="248" class="text-sans" font-size="9" font-weight="600" fill="#1B2A22">Coca-Cola (crate)</text>
+      <text x="295" y="248" class="text-mono" font-size="9" font-weight="500" fill="#1B2A22" text-anchor="end">₦8,400</text>
+
+      <text x="172" y="278" class="text-mono" font-size="9" fill="#8A7F6D">15:01</text>
+      <text x="205" y="278" class="text-sans" font-size="9" font-weight="600" fill="#1B2A22">Rice (50kg)</text>
+      <text x="295" y="278" class="text-mono" font-size="9" font-weight="500" fill="#2E6F4D" text-anchor="end">₦45,000</text>
+
+      <text x="172" y="308" class="text-mono" font-size="9" fill="#8A7F6D">15:30</text>
+      <text x="205" y="308" class="text-sans" font-size="9" font-weight="600" fill="#1B2A22">Ankara fabric</text>
+      <text x="295" y="308" class="text-mono" font-size="9" font-weight="500" fill="#1B2A22" text-anchor="end">₦18,500</text>
+
+      <!-- Total line -->
+      <line x1="172" y1="335" x2="295" y2="335" stroke="#1B2A22" stroke-width="1" />
+      <text x="172" y="352" class="text-mono" font-size="10" font-weight="500" fill="#1B2A22">TOTAL</text>
+      <text x="295" y="352" class="text-mono" font-size="14" font-weight="500" fill="#1B2A22" text-anchor="end">₦84,400</text>
+    </g>
+  </g>
+
+  <!-- ========================================= -->
+  <!-- LAYER 4: FACE (Expressive layer)          -->
+  <!-- Motion: blink (scaleY 0.1 → 1)            -->
+  <!--         smile micro-bounce on interaction -->
+  <!-- ========================================= -->
+  <g id="face">
+    <!-- Left eye -->
+    <circle cx="252" cy="172" r="4.5" class="fill-ink" />
+    <!-- Right eye -->
+    <circle cx="272" cy="172" r="4.5" class="fill-ink" />
+    <!-- Smile -->
+    <path d="M 256 188 Q 262 194 268 188" class="hairline" stroke-width="2" fill="none" />
+    <!-- Subtle cheek marks -->
+    <circle cx="245" cy="182" r="2.5" fill="#D9CFB8" opacity="0.5" />
+    <circle cx="279" cy="182" r="2.5" fill="#D9CFB8" opacity="0.5" />
+  </g>
+
+  <!-- ========================================= -->
+  <!-- LAYER 5: LEFT ARM (holds ₦ coin)          -->
+  <!-- Motion: secondary sway (±6px, 0.2s delay) -->
+  <!-- ========================================= -->
+  <g id="left-arm">
+    <!-- Arm fold -->
+    <path d="M 155 280 Q 130 285 125 300 Q 120 315 140 320 L 155 315" 
+          class="fill-white hairline" stroke-width="1.5" />
+    <!-- Hand / coin -->
+    <circle cx="118" cy="305" r="14" class="fill-paper hairline" stroke-width="1.5" />
+    <text x="118" y="310" text-anchor="middle" class="text-mono" font-size="14" font-weight="500" fill="#1B2A22">₦</text>
+    <!-- Coin edge detail -->
+    <circle cx="118" cy="305" r="10" fill="none" stroke="#2E6F4D" stroke-width="1" opacity="0.4" />
+  </g>
+
+  <!-- ========================================= -->
+  <!-- LAYER 6: RIGHT ARM (holds stamp)          -->
+  <!-- Motion: secondary sway (±6px, 0.35s delay)-->
+  <!-- ========================================= -->
+  <g id="right-arm">
+    <!-- Arm fold -->
+    <path d="M 325 270 Q 350 275 360 285 Q 370 295 355 305 L 330 295" 
+          class="fill-white hairline" stroke-width="1.5" />
+    <!-- Stamp handle -->
+    <rect x="358" y="270" width="8" height="22" rx="2" fill="#1B2A22" />
+    <!-- Stamp head -->
+    <rect x="352" y="292" width="20" height="16" rx="3" fill="#C2410C" opacity="0.15" />
+    <rect x="352" y="292" width="20" height="16" rx="3" fill="none" stroke="#C2410C" stroke-width="1.5" stroke-dasharray="2 2" />
+    <text x="362" y="303" text-anchor="middle" class="text-sans" font-size="6" font-weight="800" fill="#C2410C">PAID</text>
+  </g>
+
+  <!-- ========================================= -->
+  <!-- LAYER 7: STAMP BADGE (on body)            -->
+  <!-- Motion: stamp-down impact (scale 1.2→1)   -->
+  <!-- ========================================= -->
+  <g id="stamp-badge" transform="translate(285, 220) rotate(-8)">
+    <rect x="0" y="0" width="48" height="20" rx="3" fill="#C2410C" opacity="0.1" />
+    <rect x="0" y="0" width="48" height="20" rx="3" fill="none" stroke="#C2410C" stroke-width="1.5" stroke-dasharray="2 2" />
+    <text x="24" y="13" text-anchor="middle" class="text-sans" font-size="8" font-weight="800" fill="#C2410C" letter-spacing="0.06em">VERIFIED</text>
+  </g>
+
+  <!-- ========================================= -->
+  <!-- LAYER 8: LIVE TICKER (ambient)            -->
+  <!-- Motion: continuous pulse + drift          -->
+  <!-- ========================================= -->
+  <g id="live-ticker" transform="translate(365, 115)">
+    <circle cx="0" cy="0" r="5" fill="#2E6F4D" opacity="0.25">
+      <animate attributeName="r" values="5;10;5" dur="2.5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.25;0;0.25" dur="2.5s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="0" cy="0" r="3.5" class="fill-green" />
+    <text x="12" y="4" class="text-mono" font-size="9" fill="#2E6F4D">live</text>
+  </g>
+
+  <!-- ========================================= -->
+  <!-- LAYER 9: FLOATING PARTICLES (ambient)     -->
+  <!-- Motion: slow drift upward, fade in/out    -->
+  <!-- ========================================= -->
+  <g id="particles" opacity="0.6">
+    <circle cx="120" cy="200" r="2" fill="#2E6F4D" opacity="0.3">
+      <animate attributeName="cy" values="200;180;200" dur="4s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.3;0;0.3" dur="4s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="360" cy="240" r="1.5" fill="#D9CFB8" opacity="0.5">
+      <animate attributeName="cy" values="240;220;240" dur="5s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="140" cy="150" r="1.5" fill="#2E6F4D" opacity="0.2">
+      <animate attributeName="cy" values="150;130;150" dur="3.5s" repeatCount="indefinite" />
+    </circle>
+  </g>
+</svg>

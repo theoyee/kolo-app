@@ -26,7 +26,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="section-x ">
               {children}
 
-              <div>
+              <div className='hidden'>
                 a
                 <br />
                 v

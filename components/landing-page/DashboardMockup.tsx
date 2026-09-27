@@ -215,9 +215,9 @@ export default function DashboardMockup({ className = "" }) {
             </div>
 
             {/* stats card */}
-            <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 ">
 
-              <div className="rounded-xl border border-kolo-ink/10 bg-white p-4">
+              <div className="rounded-xl border border-kolo-ink/10 bg-white p-4 ">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[10px] text-kolo-muted-light">
                     today{`'`}s sales
@@ -239,7 +239,7 @@ export default function DashboardMockup({ className = "" }) {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-kolo-ink/10 bg-white p-4">
+              <div className="rounded-xl border border-kolo-ink/10 bg-white p-4  max-md:hidden">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[10px] text-kolo-muted-light">
                     profit
@@ -260,7 +260,7 @@ export default function DashboardMockup({ className = "" }) {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-kolo-ink/10 bg-white p-4">
+              <div className="rounded-xl border border-kolo-ink/10 bg-white p-4  max-md:hidden">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[10px] text-kolo-muted-light">
                     products
@@ -281,7 +281,7 @@ export default function DashboardMockup({ className = "" }) {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-kolo-ink/10 bg-white p-4">
+              <div className="rounded-xl border border-kolo-ink/10 bg-white p-4  max-md:hidden">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[10px] text-kolo-muted-light">
                     customers
@@ -303,7 +303,7 @@ export default function DashboardMockup({ className = "" }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-[1.8fr_1fr] gap-4 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-[1.8fr_1fr] gap-4 mt-4 max-md:hidden">
 
               {/* Chart Panel */}
               <div className="bg-white border border-kolo-hairline rounded-xl p-5 shadow-sm">

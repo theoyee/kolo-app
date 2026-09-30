@@ -46,11 +46,10 @@ export default function SettingsPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`cursor-pointer text-left p-[10px] rounded-lg transition-colors text-xs font-semibold ${
-                activeTab === tab.id
-                  ? 'bg-[#eaf7f2] font-bold text-[#07553d] border border-[#0d7a55]/20'
-                  : 'hover:bg-gray-50 text-[#6b7873]'
-              }`}
+              className={`cursor-pointer text-left p-[10px] rounded-lg transition-colors text-xs font-semibold ${activeTab === tab.id
+                ? 'bg-[#eaf7f2] font-bold text-[#07553d] border border-[#0d7a55]/20'
+                : 'hover:bg-gray-50 text-[#6b7873]'
+                }`}
             >
               {tab.label}
             </button>
@@ -186,11 +185,14 @@ function BusinessForm() {
 // 2. Team Form
 // ----------------------------------------------------
 function TeamForm() {
-  const [members, setMembers] = useState([
-    { id: '1', name: 'Ada Okafor', email: 'ada@kolo.com', role: 'Owner' },
-    { id: '2', name: 'David Mensah', email: 'david@kolo.com', role: 'Manager' },
-    { id: '3', name: 'Sarah Chuks', email: 'sarah@kolo.com', role: 'Cashier' },
-  ]);
+  interface membersRow {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+  }
+
+  const [members, setMembers] = useState<membersRow[]>([]);
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteRole, setInviteRole] = useState('CASHIER');

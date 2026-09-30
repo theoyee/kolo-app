@@ -4,7 +4,9 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
+import { toast } from 'react-toastify';
 import { InputField } from '../ui/InputField';
+import { authApi, saveAuthSession, businessApi } from '@/lib/api';
 
 const FIELDS = [
   { key: 'email', label: 'Business email', type: 'email', placeholder: 'you@business.com' },
@@ -32,17 +34,52 @@ export default function LoginPage() {
   ) as Record<FieldKey, string>;
   const isValid = Object.values(errors).every((e) => !e);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouched({ email: true, password: true });
     setAuthError('');
     if (!isValid) return;
     setSubmitting(true);
-    // TODO: replace with real login call; on failure, setAuthError(message)
-    setTimeout(() => {
-      setSubmitting(false);
+
+    try {
+      const res = await authApi.login({
+        email: values.email.trim(),
+        password: values.password,
+      });
+
+      if (!res.success || !res.data) {
+        const errorMsg = res.error?.message || 'Login failed. Please check your credentials.';
+        setAuthError(errorMsg);
+        toast.error(errorMsg);
+        setSubmitting(false);
+        return;
+      }
+
+      const { tokens, user, business } = res.data;
+      let businessId = business?.id;
+
+      // Extract active business ID from user memberships or query businesses
+      if (!businessId && user?.memberships && user.memberships.length > 0) {
+        businessId = user.memberships[0].businessId || user.memberships[0].business?.id;
+      }
+
+      if (!businessId) {
+        saveAuthSession(tokens.accessToken, tokens.refreshToken, undefined, user);
+        const bizRes = await businessApi.list();
+        if (bizRes.success && Array.isArray(bizRes.data) && bizRes.data.length > 0) {
+          businessId = bizRes.data[0].id;
+        }
+      }
+
+      saveAuthSession(tokens.accessToken, tokens.refreshToken, businessId, user);
+      toast.success(`Welcome back${user?.firstName ? `, ${user.firstName}` : ''}!`);
       router.push('/dashboard');
-    }, 900);
+    } catch (err: any) {
+      const errorMsg = err?.message || 'An unexpected error occurred during login.';
+      setAuthError(errorMsg);
+      toast.error(errorMsg);
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -50,7 +87,7 @@ export default function LoginPage() {
       <div className="mb-8">
         <h1 className="text-[27px] font-bold m-0 mb-2 text-kolo-ink">Log in to Kolo</h1>
         <p className="text-kolo-muted text-[15px]">
-          Enter your details to get back to your dashboard.
+          Enter your details to access your dashboard.
         </p>
       </div>
 
@@ -64,59 +101,48 @@ export default function LoginPage() {
       )}
 
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
-        {FIELDS.map((field) => {
-          const error = touched[field.key] && errors[field.key];
-          const isPassword = field.key === 'password';
-
-          return (
-            <React.Fragment key={field.key}>
-              <InputField
-                id={field.key}
-                label={field.label}
-                type={field.type}
-                placeholder={field.placeholder}
-                value={values[field.key]}
-                error={error}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setValues((v) => ({ ...v, [field.key]: e.target.value }))
-                }
-                onBlur={() => setTouched((t) => ({ ...t, [field.key]: true }))}
-              />
-
-              {/* "Forgot password?" is injected right below the password field */}
-              {isPassword && !error && (
-                <div className="text-right -mt-3 mb-4 relative z-10">
-                  <Link
-                    href="/forgot-password"
-                    className="text-[12px] font-semibold text-kolo-ink hover:underline underline-offset-2"
-                  >
-                    Forgot password?
-                  </Link>
-                </div>
-              )}
-            </React.Fragment>
-          );
-        })}
-
-        <label className="flex items-center gap-2 mb-6 text-[13px] text-kolo-muted select-none cursor-pointer my-4">
-          <input
-            type="checkbox"
-            checked={remember}
-            onChange={(e) => setRemember(e.target.checked)}
-            className="w-[15px] h-[15px] rounded-[4px] border-kolo-hairline text-kolo-ink focus:ring-kolo-ink accent-kolo-ink"
+        {FIELDS.map((field) => (
+          <InputField
+            key={field.key}
+            id={field.key}
+            label={field.label}
+            type={field.type}
+            placeholder={field.placeholder}
+            value={values[field.key]}
+            error={touched[field.key] && errors[field.key]}
+            onChange={(e) => setValues((v) => ({ ...v, [field.key]: e.target.value }))}
+            onBlur={() => setTouched((t) => ({ ...t, [field.key]: true }))}
           />
-          Keep me logged in on this device
-        </label>
+        ))}
+
+        <div className="flex items-center justify-between text-xs pt-1">
+          <label className="flex items-center gap-2 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={remember}
+              onChange={(e) => setRemember(e.target.checked)}
+              className="w-4 h-4 rounded border-[#1B2A22]/20 text-[#1B2A22] focus:ring-kolo-currency accent-[#1B2A22]"
+            />
+            <span className="text-kolo-muted font-medium">Keep me signed in</span>
+          </label>
+          <button
+            type="button"
+            onClick={() => toast.info('Password reset link will be sent to your email.')}
+            className="text-kolo-muted hover:text-kolo-ink font-medium"
+          >
+            Forgot password?
+          </button>
+        </div>
 
         <button
           type="submit"
           disabled={submitting}
-          className="w-full flex items-center justify-center gap-2 bg-kolo-ink hover:bg-kolo-ink-dark text-white rounded-lg py-[11px] font-bold active:scale-[0.99] transition-all disabled:opacity-60"
+          className="w-full flex items-center justify-center gap-2 bg-[#1B2A22] hover:bg-[#0F1811] text-white rounded-[9px] py-[11px] font-bold hover:opacity-90 active:scale-[0.99] transition disabled:opacity-70 mt-2"
         >
           {submitting ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
-              Logging in
+              Logging in...
             </>
           ) : (
             'Log in'
@@ -124,15 +150,12 @@ export default function LoginPage() {
         </button>
       </form>
 
-      <p className="text-center text-kolo-muted mt-5 text-sm">
-        Don{`'`}t have an account?{' '}
-        <Link
-          href="/signup"
-          className="ml-2 text-kolo-ink hover:text-kolo-currency font-bold hover:underline underline-offset-2"
-        >
-          Create one
+      <div className="pt-2 text-center text-xs text-kolo-muted border-t border-[#1B2A22]/10 mt-6">
+        Don&apos;t have an account?{' '}
+        <Link href="/signup" className="font-semibold text-kolo-currency hover:underline">
+          Sign up
         </Link>
-      </p>
+      </div>
     </div>
   );
 }

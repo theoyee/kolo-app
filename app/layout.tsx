@@ -1,6 +1,7 @@
 import { Inter, Fraunces } from 'next/font/google';
 import type { Metadata } from 'next';
 import './globals.css';
+import { ToastProvider } from '@/components/ui/ToastProvider';
 
 // Primary UI Font: Variable, optimized, and safe for ₦ and tabular numbers
 const inter = Inter({
@@ -35,6 +36,7 @@ export default function RootLayout({
       {/* font-sans applies Inter globally as the default */}
       <body className="font-inter bg-gray-50 text-slate-900">
         {children}
+        <ToastProvider />
       </body>
     </html>
   );
